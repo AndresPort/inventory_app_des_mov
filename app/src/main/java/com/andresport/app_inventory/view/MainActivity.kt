@@ -1,13 +1,15 @@
 package com.andresport.app_inventory.view
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.andresport.app_inventory.R
 import com.andresport.app_inventory.data.AppDatabase
+import com.andresport.app_inventory.model.Product
 import com.andresport.app_inventory.repository.ProductRepository
 import com.andresport.app_inventory.viewmodel.ProductViewModel
 import com.andresport.app_inventory.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,10 +24,13 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, ViewModelFactory(repository))
             .get(ProductViewModel::class.java)
 
-        viewModel.products.observe(this) { products ->
-            // Actualiza RecyclerView o UI
-        }
-
         viewModel.loadProducts()
+
+        // 🔽 Inserta productos de prueba
+        lifecycleScope.launch {
+            viewModel.addProduct(Product("P001", "Laptop HP", 2500.0, 10))
+            viewModel.addProduct(Product("P002", "Mouse Logitech", 120.0, 50))
+            viewModel.addProduct(Product("P003", "Teclado Mecánico", 300.0, 25))
+        }
     }
 }

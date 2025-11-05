@@ -24,14 +24,14 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = productList[position]
-        holder.name.text = product.productName
-        holder.price.text = product.unitPrice.toString()
+        holder.productName.text = product.productName
+        holder.unitPrice.text = product.unitPrice.toString()
     }
 
     override fun getItemCount(): Int = productList.size
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.product_name)
-        val price: TextView = itemView.findViewById(R.id.product_price)
+        val productName: TextView = itemView.findViewById(R.id.product_name)
+        val unitPrice: TextView = itemView.findViewById(R.id.product_price)
     }
 }
