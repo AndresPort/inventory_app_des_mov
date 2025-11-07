@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backgroundColor">#CC000000</string>
+    <string name="backgroundToolBarColor">#424242</string>
+    <string name="buttonColor">#FF5722</string>
+</resources>
