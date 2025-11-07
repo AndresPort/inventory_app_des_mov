@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC000000"
+    tools:ignore="ExtraText">
+    tools:context=".view.InventarioFragment">
+    <!-- Toolbar superior -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarInventario"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#424242"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme"
+        app:menu="@menu/menu_toolbar_inventario"
+        app:navigationIconTint="@android:color/white"
+        app:title="@string/inventario"
+        app:titleTextColor="@android:color/white" />
+    <!-- Lista de productos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProducts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="70dp"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_product" />
+    <!-- ProgressBar circular naranja -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:indeterminateTint="@color/orange" />
+
+    <!-- Botón flotante (+) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/add_product"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/orange"
+        app:tint="@android:color/white"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_gravity="bottom|end" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

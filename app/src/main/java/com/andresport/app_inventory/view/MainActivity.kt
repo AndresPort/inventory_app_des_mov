@@ -26,11 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.loadProducts()
 
-        // 🔽 Inserta productos de prueba
-        lifecycleScope.launch {
-            viewModel.addProduct(Product("P001", "Laptop HP", 2500.0, 10))
-            viewModel.addProduct(Product("P002", "Mouse Logitech", 120.0, 50))
-            viewModel.addProduct(Product("P003", "Teclado Mecánico", 300.0, 25))
-        }
+
     }
 }
