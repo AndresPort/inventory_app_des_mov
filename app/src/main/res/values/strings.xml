@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">Inventory App</string>
     <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="add_product">añadir producto\n</string>
+    <string name="inventario">Inventario</string>
 </resources>
