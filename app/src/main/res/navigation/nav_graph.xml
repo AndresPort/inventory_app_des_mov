@@ -3,12 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/inventarioFragment">
-
+    app:startDestination="@id/LoginFragment"
+    >
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.andresport.app_inventory.view.fragment.LoginFragment"
+        android:label="@string/fragment_login_window"
+        tools:layout="@layout/fragment_login_window"
+        >
+        <action
+            android:id="@+id/action_LoginFragment_to_InventarioFragment"
+            app:destination="@id/inventarioFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inventarioFragment"
-        android:name="com.andresport.app_inventory.view.InventarioFragment"
+        android:name="com.andresport.app_inventory.view.fragment.InventarioFragment"
         android:label="Inventario"
-        tools:layout="@layout/fragment_inventario" />
+        tools:layout="@layout/fragment_inventario">
+
+    </fragment>
+
+
 
 </navigation>
