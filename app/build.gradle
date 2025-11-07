@@ -54,11 +54,12 @@ dependencies {
     implementation "com.airbnb.android:lottie:6.4.1"
 
     // Room (persistence)
-    implementation "androidx.room:room-runtime:2.6.1"
+
     implementation 'androidx.navigation:navigation-fragment-ktx:2.8.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.8.3'
-    kapt "androidx.room:room-compiler:2.6.1"
-    implementation "androidx.room:room-ktx:2.6.1"
+    implementation "androidx.room:room-runtime:2.7.0-beta01"
+    implementation "androidx.room:room-ktx:2.7.0-beta01"
+    kapt "androidx.room:room-compiler:2.7.0-beta01"
     // Biometric
     implementation "androidx.biometric:biometric:1.2.0-alpha05"
 

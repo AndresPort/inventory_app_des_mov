@@ -19,7 +19,9 @@
         android:id="@+id/inventarioFragment"
         android:name="com.andresport.app_inventory.view.fragment.InventarioFragment"
         android:label="Inventario"
-        tools:layout="@layout/fragment_inventario"/>
+        tools:layout="@layout/fragment_inventario">
+
+    </fragment>
 
 
 
