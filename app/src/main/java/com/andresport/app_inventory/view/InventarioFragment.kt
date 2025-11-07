@@ -70,22 +70,6 @@ class InventarioFragment : Fragment() {
         // Carga los productos
         viewLifecycleOwner.lifecycleScope.launch {
             val dao = AppDatabase.getInstance(requireContext()).productDao()
-
-            // Verifica si la tabla está vacía
-            if (dao.getAllProducts().isEmpty()) {
-                dao.insertProduct(Product(
-                    productRef = "001", productName = "Pan de queso",
-                    unitPrice = 1500.0,
-                    stock = 2
-                ))
-                dao.insertProduct(Product(productName = "Galleta de avena",
-                    unitPrice = 2000.0, productRef = "prueba 2",
-                    stock = 3))
-                dao.insertProduct(Product(productName = "Café americano",
-                    unitPrice = 2500.0, productRef = "prueba 3",
-                    stock = 4))
-
-            }
             viewModel.loadProducts()
         }
         fabAdd.setOnClickListener {

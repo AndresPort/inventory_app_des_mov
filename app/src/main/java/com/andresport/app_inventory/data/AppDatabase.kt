@@ -25,46 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "inventory_app_database"
                 )
-                    .addCallback(object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            // Se ejecuta SOLO una vez, cuando se crea la base de datos
-                            CoroutineScope(Dispatchers.IO).launch {
-                                val dao = getInstance(context).productDao()
 
-                                dao.insertProduct(
-                                    Product(
-                                        productRef = "1",
-                                        productName = "Pan artesanal",
-                                        unitPrice = 2500.0,
-                                        stock = 30
-                                    )
-                                )
-
-                                dao.insertProduct(
-                                    Product(
-                                        productRef = "2",
-                                        productName = "Croissant",
-                                        unitPrice = 3000.0,
-                                        stock = 15
-                                    )
-                                )
-
-                                dao.insertProduct(
-                                    Product(
-                                        productRef = "3",
-                                        productName = "Galletas de avena",
-                                        unitPrice = 1500.0,
-                                        stock = 50
-                                    )
-                                )
-                                val products = dao.getAllProducts()
-                                products.forEach {
-                                    android.util.Log.d("ROOM_DB", "Producto insertado: ${it.productName} (${it.unitPrice})")
-                                }
-                            }
-                        }
-                    })
                     .fallbackToDestructiveMigration() // 👈 añade esto
                     .build()
                 INSTANCE = instance
