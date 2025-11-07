@@ -59,8 +59,7 @@ class LoginFragment : Fragment() {
         // 1. Observa el comando de navegación (disparado por el ViewModel en caso de éxito)
         loginViewModel.loginSuccess.observe(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
-                // Comando de la UI
-                Toast.makeText(requireContext(), "✅ Acceso concedido", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_LoginFragment_to_InventarioFragment)
             }
         }
 
