@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Inventory App</string>
+    <string name="gestionar_inventario">Gestionar Inventario</string>
+    <string name="cu_nto_tengo_de_inventario">¿Cuánto tengo de inventario?</string>
+    <string name="inventory">Inventory</string>
     <string name="cerrar_sesi_n">Cerrar sesión</string>
     <string name="add_product">añadir producto\n</string>
     <string name="inventario">Inventario</string>
     <string name="fragment_login_window">fragment_login_window</string>
+
 </resources>
