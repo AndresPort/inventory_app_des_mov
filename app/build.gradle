@@ -47,12 +47,15 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
 
     // Lifecycle components (ViewModel, LiveData)
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.4"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.7"
+
+
 
     // Room (persistence)
     implementation "androidx.room:room-runtime:2.6.1"
-    implementation 'androidx.activity:activity:1.11.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.6'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.9.6'
     kapt "androidx.room:room-compiler:2.6.1"
     implementation "androidx.room:room-ktx:2.6.1"
 
