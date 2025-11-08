@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="orange">#FF5722</color>
-    <string name="backgroundColor">#CC000000</string>
-    <string name="backgroundToolBarColor">#424242</string>
-    <string name="buttonColor">#FF5722</string>
+    <color name="backgroundColor">#CC000000</color>
+    <color name="backgroundToolBarColor">#424242</color>
+    <color name="buttonColor">#FF5722</color>
     <color name="background_dark">#24292E</color>
+    <color name="white_edit_product">#FFFFFFFF</color>
+
 </resources>
