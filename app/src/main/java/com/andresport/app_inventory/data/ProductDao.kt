@@ -14,6 +14,9 @@ interface ProductDao {
     @Query("SELECT * FROM product")
     suspend fun getAllProducts(): List<Product>
 
+    @Query("SELECT * FROM product WHERE product_ref = :productRef")
+    suspend fun getProductById(productRef: String): Product?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProduct(product: Product)
 

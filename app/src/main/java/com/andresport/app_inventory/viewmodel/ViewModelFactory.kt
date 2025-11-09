@@ -13,6 +13,11 @@ class ViewModelFactory(
             @Suppress("UNCHECKED_CAST")
             return ProductViewModel(repository) as T
         }
+        if (modelClass.isAssignableFrom(EditProductViewModel::class.java)) {
+            // ...créalo y devuélvelo.
+            @Suppress("UNCHECKED_CAST")
+            return EditProductViewModel(repository) as T
+        }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

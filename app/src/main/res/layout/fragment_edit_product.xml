@@ -55,5 +55,84 @@
         tools:text="12345" />
 
     <!-- Criterio 3 -->
+    <!-- Campo para el Nombre del Artículo-->
+    <TextView
+        android:id="@+id/tvNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:text="Nombre Artículo"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvIdLabel" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:backgroundTint="#AFAFAF"
+        android:inputType="textCapWords"
+        android:textColor="@android:color/white"
+        android:textColorHint="#AFAFAF"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/edit_text_border"
+        android:padding="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameLabel"/>
+
+
+    <!-- Campo para el Precio -->
+    <TextView
+        android:id="@+id/tvPriceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Precio"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+    <EditText
+        android:id="@+id/etPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#AFAFAF"
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/white"
+        android:textColorHint="#AFAFAF"
+        android:background="@drawable/edit_text_border"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/etName"
+        app:layout_constraintStart_toStartOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
+
+    <!-- Campo para la Cantidad-->
+    <TextView
+        android:id="@+id/tvQuantityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Cantidad"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="@+id/etPrice"
+        app:layout_constraintTop_toBottomOf="@+id/etPrice" />
+
+    <EditText
+        android:id="@+id/etQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#AFAFAF"
+        android:background="@drawable/edit_text_border"
+        android:padding="12dp"
+        android:hint="@string/edit_product_hint_quantity"
+        android:inputType="number"
+        android:textColor="@android:color/white"
+        android:textColorHint="#AFAFAF"
+        app:layout_constraintEnd_toEndOf="@+id/etPrice"
+        app:layout_constraintStart_toStartOf="@+id/etPrice"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuantityLabel" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

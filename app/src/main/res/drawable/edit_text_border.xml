@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- transparente para que tome el color del layout padre -->
+    <solid android:color="@android:color/transparent" />
+
+    <!-- El borde de la caja -->
+    <stroke
+        android:width="1dp"
+        android:color="#AFAFAF" /> <!-- Puedes usar el color que quieras, ej: @color/white_edit_product -->
+
+    <!-- Hace que las esquinas sean ligeramente redondeadas (opcional) -->
+    <corners android:radius="4dp" />
+
+</shape>
