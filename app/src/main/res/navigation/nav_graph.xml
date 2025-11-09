@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/LoginFragment"
+    app:startDestination="@id/editProductFragment"
     >
     <fragment
         android:id="@+id/LoginFragment"
@@ -22,7 +22,19 @@
         tools:layout="@layout/fragment_inventario">
 
     </fragment>
+    <fragment
+        android:id="@+id/editProductFragment"
+        android:name="com.andresport.app_inventory.view.fragment.EditProductFragment"
+        android:label="EditProductFragment"
+        tools:layout="@layout/fragment_edit_product"> <!-- referencia al layout aquí -->
 
+
+        <argument
+            android:name="productId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+
+    </fragment>
 
 
 </navigation>

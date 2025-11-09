@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor">
-    <!--tools:context=".ui.edit.EditProductFragment">  Reemplaza con la ruta a tu fragment -->
+    android:background="@color/backgroundColor"
+    tools:context=".view.fragment.EditProductFragment">
 
+    <!-- Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbarEditProduct"
@@ -26,5 +29,31 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
+    <TextView
+        android:id="@+id/tvIdLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/edit_product_label_id"
+        android:textColor="@color/white_edit_product"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" /> <!-- debajo de la barra -->
+
+    <TextView
+        android:id="@+id/tvProductIdValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/white_edit_product"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvIdLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvIdLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvIdLabel"
+        tools:text="12345" />
+
+    <!-- Criterio 3 -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
