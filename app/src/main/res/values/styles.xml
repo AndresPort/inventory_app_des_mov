@@ -1,0 +1,23 @@
+<resources>
+    <style name="CustomTextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Tipo de caja -->
+        <item name="boxBackgroundMode">outline</item>
+
+        <!-- Color del borde para todos los estados -->
+        <item name="boxStrokeColor">@color/white_box_stroke</item>
+
+        <!-- Grosor del borde -->
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+
+        <!-- Fondo transparente -->
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+
+        <!-- Hint y texto blancos -->
+        <item name="hintTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+</resources>

@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSurface">@android:color/transparent</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="textInputStyle">@style/CustomTextInput</item>
+    </style>
+</resources>

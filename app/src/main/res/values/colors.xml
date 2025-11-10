@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="backgroundColor">#CC000000</string>
-    <string name="backgroundToolBarColor">#424242</string>
-    <string name="buttonColor">#FF5722</string>
+    <color name="white">#CCFFFFFF</color>
+    <color name="black">#CC000000</color>
+
+    <color name="backgroundColor">#CC000000</color>
+    <color name="backgroundToolBarColor">#424242</color>
+    <color name="buttonColor">#FF5722</color>
+    <color name="textButtonColor">#4E1600</color>
+    <color name="commonTextColor">#FFFFFF</color>
+    <color name="borderColor">#A6A6A6</color>
 </resources>
