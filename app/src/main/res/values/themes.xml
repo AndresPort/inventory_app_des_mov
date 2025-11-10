@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    parent="Theme.Material3.DayNight.NoActionBar" es la clave.
+    Esto le da a tu app todos los estilos modernos de Material Design 3.
+    -->
+    <style name="Base.Theme.App_inventory" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Aquí puedes personalizar colores primarios, etc. en el futuro -->
+        <!-- <item name="colorPrimary">@color/orange</item> -->
+    </style>
+
+    <style name="Theme.App_inventory" parent="Base.Theme.App_inventory" />
+</resources>

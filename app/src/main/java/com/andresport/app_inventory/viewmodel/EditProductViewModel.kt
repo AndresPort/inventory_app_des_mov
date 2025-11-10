@@ -31,4 +31,18 @@ class EditProductViewModel(private val repository: ProductRepository) : ViewMode
             _product.postValue(productData)
         }
     }
+
+    fun updateProduct(productRef: String, newName: String, newPrice: Double, newStock: Long) {
+        viewModelScope.launch {
+            // Creamos un nuevo objeto Product con los datos actualizados
+            val updatedProduct = Product(
+                productRef = productRef,
+                productName = newName,
+                unitPrice = newPrice,
+                stock = newStock
+            )
+            // Le pasamos el producto actualizado al repositorio para que lo guarde en la BD
+            repository.updateProduct(updatedProduct)
+        }
+    }
 }

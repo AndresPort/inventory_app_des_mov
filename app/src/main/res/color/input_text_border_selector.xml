@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Estado 1: Cuando el campo tiene el foco (prioridad más alta) -->
+    <!-- Se verá blanco mientras el usuario escribe en él. -->
+    <item android:state_focused="true" android:color="@color/white_edit_product" />
+
+    <!-- Estado 2: Cuando el campo está HABILITADO pero SIN FOCO -->
+    <!-- Se verá blanco siempre que no esté vacío (lo controlaremos desde Kotlin) -->
+    <item android:state_enabled="true" android:color="@color/white_edit_product" />
+
+    <!-- Estado 3 (Por defecto): Cuando el campo está DESHABILITADO -->
+    <!-- Se verá gris cuando esté vacío. -->
+    <item android:color="@color/hint_color_inactive" />
+
+</selector>

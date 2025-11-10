@@ -28,7 +28,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
+    <!-- Sección del ID -->
     <TextView
         android:id="@+id/tvIdLabel"
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:textColor="@color/white_edit_product"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout" /> <!-- debajo de la barra -->
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
     <TextView
         android:id="@+id/tvProductIdValue"
@@ -54,85 +54,96 @@
         app:layout_constraintTop_toTopOf="@+id/tvIdLabel"
         tools:text="12345" />
 
-    <!-- Criterio 3 -->
-    <!-- Campo para el Nombre del Artículo-->
-    <TextView
-        android:id="@+id/tvNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
-        android:text="Nombre Artículo"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvIdLabel" />
-
-    <EditText
-        android:id="@+id/etName"
+    <!-- ampo Nombre con constraints y estilo correcto -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilName"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:backgroundTint="#AFAFAF"
-        android:inputType="textCapWords"
-        android:textColor="@android:color/white"
-        android:textColorHint="#AFAFAF"
+        android:layout_marginTop="24dp"
+        android:hint="@string/edit_product_hint_name"
+        android:textColorHint="@color/hint_color_inactive"
+        app:boxStrokeColor="@android:color/white"
+        app:hintTextColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/edit_text_border"
-        android:padding="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameLabel"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvIdLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:textColor="@android:color/white" />
 
 
-    <!-- Campo para el Precio -->
-    <TextView
-        android:id="@+id/tvPriceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Precio"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="@+id/etName"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etPrice"
+    <!--Campo Precio con constraints -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPrice"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#AFAFAF"
-        android:inputType="numberDecimal"
-        android:textColor="@android:color/white"
-        android:textColorHint="#AFAFAF"
-        android:background="@drawable/edit_text_border"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/etName"
-        app:layout_constraintStart_toStartOf="@+id/etName"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
-
-    <!-- Campo para la Cantidad-->
-    <TextView
-        android:id="@+id/tvQuantityLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Cantidad"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="@+id/etPrice"
-        app:layout_constraintTop_toBottomOf="@+id/etPrice" />
+        android:hint="@string/edit_product_hint_price"
+        android:textColorHint="@color/hint_color_inactive"
+        app:boxStrokeColor="@android:color/white"
+        app:hintTextColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/tilName"
+        app:layout_constraintStart_toStartOf="@+id/tilName"
+        app:layout_constraintTop_toBottomOf="@+id/tilName">
 
-    <EditText
-        android:id="@+id/etQuantity"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="@android:color/white" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--Campo Cantidad con constraints -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilQuantity"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#AFAFAF"
-        android:background="@drawable/edit_text_border"
-        android:padding="12dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/edit_product_hint_quantity"
-        android:inputType="number"
-        android:textColor="@android:color/white"
-        android:textColorHint="#AFAFAF"
-        app:layout_constraintEnd_toEndOf="@+id/etPrice"
-        app:layout_constraintStart_toStartOf="@+id/etPrice"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuantityLabel" />
+        android:textColorHint="@color/hint_color_inactive"
+        app:boxStrokeColor="@android:color/white"
+        app:hintTextColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/tilPrice"
+        app:layout_constraintStart_toStartOf="@+id/tilPrice"
+        app:layout_constraintTop_toBottomOf="@+id/tilPrice">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@android:color/white" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botón Editar -->
+    <Button
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_rounded_corners"
+        android:paddingVertical="12dp"
+        android:text="@string/edit_product_button_edit"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:backgroundTint="@color/buttonColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
