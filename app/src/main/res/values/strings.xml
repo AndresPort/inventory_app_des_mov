@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Inventory App</string>
+
     <string name="gestionar_inventario">Gestionar Inventario</string>
     <string name="cu_nto_tengo_de_inventario">¿Cuánto tengo de inventario?</string>
     <string name="inventory">Inventory</string>
@@ -8,5 +9,14 @@
     <string name="add_product">añadir producto\n</string>
     <string name="inventario">Inventario</string>
     <string name="fragment_login_window">fragment_login_window</string>
+
+    <string name="addProduct">Agregar producto</string>
+
+    <string name="productRefHint">Código producto</string>
+    <string name="productNameHint">Nombre artículo</string>
+    <string name="unitPriceHint">Precio</string>
+    <string name="stockHint">Cantidad</string>
+
+    <string name="saveButton">Guardar</string>
 
 </resources>
