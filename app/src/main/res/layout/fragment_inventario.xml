@@ -21,15 +21,16 @@
         app:title="@string/inventario"
         app:titleTextColor="@android:color/white" />
     <!-- Lista de productos -->
+    <!-- ProgressBar circular naranja -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:paddingHorizontal="16dp"
         android:paddingVertical="70dp"
-        android:clipToPadding="false"
         tools:listitem="@layout/item_product" />
-    <!-- ProgressBar circular naranja -->
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"

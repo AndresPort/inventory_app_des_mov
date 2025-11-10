@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.andresport.app_inventory'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.andresport.app_inventory"
         minSdk 24
-        targetSdk 34
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 

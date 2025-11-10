@@ -5,8 +5,8 @@
     <color name="white">#CCFFFFFF</color>
     <color name="black">#CC000000</color>
 
-    <string name="backgroundColor">#CC000000</string>
-    <string name="backgroundToolBarColor">#424242</string>
+    <color name="backgroundColor">#CC000000</color>
+    <color name="backgroundToolBarColor">#424242</color>
     <color name="background_dark">#24292E</color>
 
     <color name="buttonColor">#FF5722</color>
