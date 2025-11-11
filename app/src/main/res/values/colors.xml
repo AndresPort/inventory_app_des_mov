@@ -12,4 +12,11 @@
     <color name="disabledTextButtonColor">#4E1600</color>
     <color name="commonTextColor">#FFFFFF</color>
     <color name="borderColor">#A6A6A6</color>
+
+    <color name="backgroundCardProductDetail">#FFFFFF</color>
+    <color name="textCardProductDetail">#424242</color>
+    <color name="backgroundButtonProductDetail">#FF5722</color>
+    <color name="textWhiteProductDetail">#FFFFFF</color>
+    <color name="iconProductDetails">#FFFFFF</color>
+    <color name="priceProductDetail">#FF5722</color>
 </resources>

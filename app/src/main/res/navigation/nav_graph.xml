@@ -34,6 +34,15 @@
             android:id="@+id/action_addProductFragment_to_inventarioFragment"
             app:destination="@id/inventarioFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.andresport.app_inventory.view.fragment.DetailProductFragment"
+        android:label="Detalle del producto"
+        tools:layout="@layout/fragment_product_detail" >
 
+        <action
+            android:id="@+id/action_productDetailFragment_to_inventarioFragment"
+            app:destination="@id/inventarioFragment" />
+    </fragment>
 
 </navigation>

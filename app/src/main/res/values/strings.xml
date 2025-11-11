@@ -19,4 +19,11 @@
 
     <string name="saveButton">Guardar</string>
 
+    <string name="product_detail_title">Detalle del producto</string>
+    <string name="product_detail_unit_price">Precio Unidad:</string>
+    <string name="product_detail_available_quantity">Cantidad Disponible:</string>
+    <string name="product_detail_total">Total:</string>
+    <string name="product_detail_delete_button">Eliminar</string>
+    <string name="product_detail_edit_description">Editar producto</string>
+
 </resources>
