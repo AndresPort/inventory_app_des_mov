@@ -22,6 +22,7 @@
         app:titleTextColor="@android:color/white" />
     <!-- Lista de productos -->
     <!-- ProgressBar circular naranja -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProducts"
         android:layout_width="match_parent"
