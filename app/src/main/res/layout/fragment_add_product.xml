@@ -168,7 +168,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/saveButton"
         android:textSize="18sp"
-        android:textColor="@color/textButtonColor"
+        android:textColor="@color/save_button_text_color"
         android:background="@drawable/rounded_button"
         android:enabled="false"
         >

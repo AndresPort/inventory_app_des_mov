@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <!-- Color dinámico (depende de si está habilitado o no) -->
-    <solid android:color="@color/save_button_background_color" />
+    <solid android:color="@color/buttonColor" />
 
     <!-- Bordes redondeados -->
     <corners android:radius="50dp" />

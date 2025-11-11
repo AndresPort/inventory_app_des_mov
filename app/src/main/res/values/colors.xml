@@ -8,9 +8,8 @@
     <color name="backgroundToolBarColor">#424242</color>
     <color name="background_dark">#24292E</color>
 
-    <color name="disabledButtonColor">#731F00</color>
     <color name="buttonColor">#FF5722</color>
-    <color name="textButtonColor">#4E1600</color>
+    <color name="disabledTextButtonColor">#4E1600</color>
     <color name="commonTextColor">#FFFFFF</color>
     <color name="borderColor">#A6A6A6</color>
 </resources>
