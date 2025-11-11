@@ -42,7 +42,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp"
         android:theme="@style/Theme.MyApp"
-        app:boxBackgroundMode="outline">
+        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="4"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/productRefTIET"
@@ -52,7 +55,9 @@
             android:textSize="20sp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:background="@null" />
+            android:background="@null"
+            android:inputType="number"
+            android:maxLength="4"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--Text Input Edit Text (product name) -->
