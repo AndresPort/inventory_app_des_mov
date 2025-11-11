@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Estado DESHABILITADO: gris -->
+    <item android:color="@color/disabledButtonColor" android:state_enabled="false"/>
+
+    <!-- Estado HABILITADO: naranja -->
+    <item android:color="@color/buttonColor" android:state_enabled="true"/>
+
+    <!-- Estado por defecto: naranja -->
+    <item android:color="@color/buttonColor"/>
+
+</selector>

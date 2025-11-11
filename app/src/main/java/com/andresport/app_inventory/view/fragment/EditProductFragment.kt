@@ -13,6 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+
+import androidx.fragment.app.setFragmentResult
 import com.andresport.app_inventory.R
 import com.andresport.app_inventory.data.AppDatabase
 import com.andresport.app_inventory.repository.ProductRepository
@@ -87,15 +89,10 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
             val newPriceStr = etPrice.text.toString().trim()
             val newQuantityStr = etQuantity.text.toString().trim()
 
-            // Validaciones adicionales
             if (newName.isBlank() || newPriceStr.isBlank() || newQuantityStr.isBlank()) {
                 Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            // CRITERIO 6: Nombre máximo 40 caracteres (ya restringido por maxLength en XML)
-            // CRITERIO 7: Precio máximo 20 dígitos (ya restringido por maxLength en XML)
-            // CRITERIO 8: Cantidad máximo 4 dígitos (ya restringido por maxLength en XML)
 
             val newPrice = newPriceStr.toDoubleOrNull()
             val newQuantity = newQuantityStr.toLongOrNull()
@@ -108,8 +105,17 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
             // Actualizar en BD
             viewModel.updateProduct(args.productId, newName, newPrice, newQuantity)
 
-            Toast.makeText(requireContext(), "✅ Producto actualizado", Toast.LENGTH_SHORT).show()
-            findNavController().navigateUp()
+            // ENVIAR RESULTADO al Inventario
+            val result = Bundle().apply {
+                putBoolean("productUpdated", true)
+                putString("updatedProductId", args.productId)
+            }
+            setFragmentResult("editProductRequest", result)
+
+            Toast.makeText(requireContext(), "Producto actualizado", Toast.LENGTH_SHORT).show()
+
+            // NAVEGAR DIRECTAMENTE A INVENTARIO
+            findNavController().navigate(R.id.action_editProductFragment_to_inventarioFragment)
         }
 
         // Cargar producto desde BD

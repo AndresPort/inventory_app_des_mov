@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,8 +22,11 @@ import com.andresport.app_inventory.viewmodel.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
+import java.util.ArrayList
+import java.util.List
+import java.util.Map
 
-class InventarioFragment : Fragment() {
+class InventarioFragment : Fragment(R.layout.fragment_inventario) {
 
     private lateinit var viewModel: ProductViewModel
     private lateinit var recyclerView: RecyclerView
@@ -88,6 +93,17 @@ class InventarioFragment : Fragment() {
             viewModel.loadProducts()
         }
 
+        // ESCUCHAR resultado de EditProductFragment
+        setFragmentResultListener("editProductRequest") { _, bundle ->
+            val wasUpdated = bundle.getBoolean("productUpdated", false)
+            if (wasUpdated) {
+                // Recargar la lista de productos
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewModel.loadProducts()
+                }
+                Toast.makeText(requireContext(), "Lista actualizada", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun openAddProductFragment() {

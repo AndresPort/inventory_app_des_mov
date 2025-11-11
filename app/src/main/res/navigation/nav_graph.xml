@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/LoginFragment"
+    app:startDestination="@id/editProductFragment"
     >
     <fragment
         android:id="@+id/LoginFragment"
@@ -62,6 +62,7 @@
             app:destination="@id/inventarioFragment"
             app:popUpTo="@id/inventarioFragment"
             app:popUpToInclusive="true" />
+
     </fragment>
 
 
