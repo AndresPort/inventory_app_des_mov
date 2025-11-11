@@ -17,6 +17,12 @@ class addProductFragment : Fragment() {
         fun newInstance() = addProductFragment()
     }
 
+    private lateinit var productRefTIET: com.google.android.material.textfield.TextInputEditText
+    private lateinit var productNameTIET: com.google.android.material.textfield.TextInputEditText
+    private lateinit var unitPriceTIET: com.google.android.material.textfield.TextInputEditText
+    private lateinit var stockTIET: com.google.android.material.textfield.TextInputEditText
+    private lateinit var saveBtn: android.widget.Button
+
 
     private lateinit var returnIc: ImageView
 
@@ -36,11 +42,38 @@ class addProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ✅ Aquí ya existe la vista, por eso puedes acceder a los elementos
         returnIc = view.findViewById(R.id.returnIc)
         returnIc.setOnClickListener {
             returnInventoryPage()
         }
+
+        productRefTIET = view.findViewById(R.id.productRefTIET)
+        productNameTIET = view.findViewById(R.id.productNameTIET)
+        unitPriceTIET = view.findViewById(R.id.unitPriceTIET)
+        stockTIET = view.findViewById(R.id.stockTIET)
+        saveBtn = view.findViewById(R.id.saveBtn)
+
+
+        val textWatcher = object : android.text.TextWatcher {
+            override fun afterTextChanged(s: android.text.Editable?) {
+                val ref = productRefTIET.text.toString().trim()
+                val name = productNameTIET.text.toString().trim()
+                val price = unitPriceTIET.text.toString().trim()
+                val stock = stockTIET.text.toString().trim()
+
+                // Si todos los campos tienen texto, habilita el botón
+                saveBtn.isEnabled = ref.isNotEmpty() && name.isNotEmpty() && price.isNotEmpty() && stock.isNotEmpty()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        }
+
+// Escucha cambios en todos los campos
+        productRefTIET.addTextChangedListener(textWatcher)
+        productNameTIET.addTextChangedListener(textWatcher)
+        unitPriceTIET.addTextChangedListener(textWatcher)
+        stockTIET.addTextChangedListener(textWatcher)
     }
 
 

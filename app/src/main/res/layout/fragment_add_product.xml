@@ -124,7 +124,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:background="@null"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:maxLength="20"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,6 +170,7 @@
         android:textSize="18sp"
         android:textColor="@color/textButtonColor"
         android:background="@drawable/rounded_button"
+        android:enabled="false"
         >
     </Button>
 
