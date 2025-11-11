@@ -1,35 +1,51 @@
 package com.andresport.app_inventory.utils
 
+import android.content.Context
+import android.content.SharedPreferences
+
 /**
- * Esta clase es para gestionar la sesión del usuario en memoria.
- * La sesión se borrará cuando la aplicación se cierre completamente (proceso terminado).
+ * Esta clase es para gestionar la sesión del usuario a través de SharedPreferences.
  * Se encarga de guardar, recuperar y borrar el token de autenticación.
  */
-object SessionManager {
+class SessionManager(context: Context) {
 
-    private var authToken: String? = null
+    // Se inicializan las SharedPreferences en modo privado.
+    private val prefs: SharedPreferences = context.getSharedPreferences("Auth", Context.MODE_PRIVATE)
 
-    /**
-     * La función recibe un token y lo guarda en memoria.
-     * Esto mantiene la sesión del usuario activa mientras la app esté viva.
-     */
-    fun saveAuthToken(token: String) {
-        authToken = token
+    // Objeto compañero para definir constantes.
+    companion object {
+        // Clave para guardar y recuperar el token del usuario.
+        const val USER_TOKEN = "user_token"
     }
 
     /**
-     * Esta función es para obtener el token de autenticación guardado en memoria.
+     * La función recibe un token y lo guarda en SharedPreferences.
+     * Esto mantiene la sesión del usuario activa.
+     */
+    fun saveAuthToken(token: String) {
+        val editor = prefs.edit()
+        // Se guarda el token con la clave USER_TOKEN.
+        editor.putString(USER_TOKEN, token)
+        editor.apply()
+    }
+
+    /**
+     * Esta función es para obtener el token de autenticación guardado.
      * Retorna el token si existe, de lo contrario retorna null.
      */
     fun fetchAuthToken(): String? {
-        return authToken
+        // Aquí se obtiene el token guardado.
+        return prefs.getString(USER_TOKEN, null)
     }
 
     /**
-     * Esta función es para borrar el token de autenticación de la memoria.
+     * Esta función es para borrar el token de autenticación.
      * Se utiliza para cerrar la sesión del usuario.
      */
     fun clearAuthToken() {
-        authToken = null
+        val editor = prefs.edit()
+        // Se remueve el token de SharedPreferences.
+        editor.remove(USER_TOKEN)
+        editor.apply()
     }
 }

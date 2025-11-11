@@ -1,11 +1,15 @@
 package com.andresport.app_inventory.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.andresport.app_inventory.utils.SessionManager
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
+
+    // Se inicializa el gestor de sesión para manejar los datos del usuario.
+    private val sessionManager = SessionManager(application)
 
     // LiveData que notifica a la vista cuando el inicio de sesión es exitoso.
     private val _loginSuccess = MutableLiveData<Boolean>()
@@ -20,23 +24,23 @@ class LoginViewModel : ViewModel() {
     val isUserLoggedIn: LiveData<Boolean> = _isUserLoggedIn
 
     /**
-     * Esta función es para verificar si hay una sesión de usuario guardada en memoria.
+     * Esta función es para verificar si hay una sesión de usuario guardada.
      * Se obtiene el token de autenticación y se actualiza el LiveData _isUserLoggedIn.
      */
     fun checkUserLoggedIn() {
-        // Aquí se obtiene el token guardado en memoria.
-        val token = SessionManager.fetchAuthToken()
+        // Aquí se obtiene el token guardado en SharedPreferences.
+        val token = sessionManager.fetchAuthToken()
         // Se notifica a la vista si el token existe o no.
         _isUserLoggedIn.value = !token.isNullOrEmpty()
     }
 
     /**
      * Esta función se ejecuta cuando la autenticación biométrica es correcta.
-     * Se guarda un token de sesión en memoria para mantener al usuario conectado.
+     * Se guarda un token de sesión para mantener al usuario conectado.
      */
     fun onAuthenticationSuccess() {
         // Se guarda un token para identificar que la sesión está activa.
-        SessionManager.saveAuthToken("user_logged_in")
+        sessionManager.saveAuthToken("user_logged_in") 
         // Se notifica a la vista que el login fue exitoso para navegar a la siguiente pantalla.
         _loginSuccess.value = true
     }
