@@ -1,9 +1,7 @@
 package com.andresport.app_inventory.view.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -22,49 +20,53 @@ import com.andresport.app_inventory.viewmodel.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
-import java.util.ArrayList
-import java.util.List
-import java.util.Map
 
+// Heredamos de Fragment(R.layout.fragment_inventario) para que infle el layout automáticamente.
+// Esto nos permite eliminar el método onCreateView.
 class InventarioFragment : Fragment(R.layout.fragment_inventario) {
 
     private lateinit var viewModel: ProductViewModel
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProductAdapter
-    private lateinit var fabAddProduct: FloatingActionButton
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_inventario, container, false)
-
-        // Configurar toolbar
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbarInventario)
-        toolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.action_logout -> {
-                    // Acción de cerrar sesión (pendiente)
-                    true
-                }
-                else -> false
-            }
-        }
-
-        // Configurar RecyclerView
-        recyclerView = view.findViewById(R.id.recyclerViewProducts)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = ProductAdapter()
-        recyclerView.adapter = adapter
-
-        return view
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // --- INICIO DE LA CORRECCIÓN ---
+
+        // 1. Buscamos el Toolbar en la vista.
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbarInventario)
+
+        // 2. Configura el listener para los íconos del MENÚ (definidos en menu_toolbar_inventario.xml).
+        // Este es el método correcto para manejar clics en íconos de menú.
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            // Verificamos el ID del ítem del menú que fue presionado.
+            when (menuItem.itemId) {
+                // Usamos el ID de tu menú: R.id.action_logout.
+                R.id.action_logout -> {
+                    // Llamamos a la función para volver al Login.
+                    returnToLogInFragment()
+                    // Retornamos 'true' para indicar que hemos manejado el evento.
+                    true
+                }
+                else -> {
+                    // Si es otro ítem, retornamos 'false' para que el sistema lo maneje.
+                    false
+                }
+            }
+        }
+        // --- FIN DE LA CORRECCIÓN ---
+
+
+        // --- Resto de tu código de inicialización (sin cambios) ---
+
+        // Inicializar RecyclerView
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewProducts)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = ProductAdapter()
+        recyclerView.adapter = adapter
+
         // Inicializar botón flotante
-        fabAddProduct = view.findViewById(R.id.fabAddProduct)
+        val fabAddProduct = view.findViewById<FloatingActionButton>(R.id.fabAddProduct)
         fabAddProduct.setOnClickListener {
             openAddProductFragment()
         }
@@ -78,26 +80,22 @@ class InventarioFragment : Fragment(R.layout.fragment_inventario) {
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory)[ProductViewModel::class.java]
 
-        // Mostrar progress mientras se cargan los productos
+        // Observar y cargar productos
         progressBar.visibility = View.VISIBLE
-
-        // Observar productos
         viewModel.products.observe(viewLifecycleOwner) { products ->
             adapter.setProducts(products)
-            // Ocultar progress cuando ya se cargaron los datos
             progressBar.visibility = View.GONE
         }
 
-        // Cargar productos desde la BD
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.loadProducts()
         }
 
-        // ESCUCHAR resultado de EditProductFragment
+        // Listener para resultados de otros fragments (como editar producto)
         setFragmentResultListener("editProductRequest") { _, bundle ->
             val wasUpdated = bundle.getBoolean("productUpdated", false)
             if (wasUpdated) {
-                // Recargar la lista de productos
+                // Recargar la lista de productos si hubo una actualización
                 viewLifecycleOwner.lifecycleScope.launch {
                     viewModel.loadProducts()
                 }
@@ -108,5 +106,15 @@ class InventarioFragment : Fragment(R.layout.fragment_inventario) {
 
     private fun openAddProductFragment() {
         findNavController().navigate(R.id.action_inventarioFragment_to_addProductFragment)
+    }
+
+    private fun returnToLogInFragment() {
+        // Navega de vuelta al Login.
+        // RECOMENDACIÓN: Asegúrate de que esta acción en tu nav_graph.xml limpie la pila de navegación
+        // para evitar que el usuario pueda volver al inventario con el botón "Atrás" del dispositivo.
+        // Ejemplo en nav_graph.xml para la acción:
+        // app:popUpTo="@id/nav_graph"
+        // app:popUpToInclusive="true"
+        findNavController().navigate(R.id.action_inventarioFragment_to_LoginFragment)
     }
 }
