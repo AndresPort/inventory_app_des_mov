@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context=".view.fragment.addProductFragment">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/backgroundToolBarColor"
+        >
+
+        <ImageView
+            android:id="@+id/returnIc"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_left"
+            app:tint="@color/white"
+            >
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            android:layout_marginStart="40dp"
+            android:text="@string/addProduct"
+            android:textColor="@color/commonTextColor"
+            android:textSize="25sp"
+            android:gravity="center"
+        >
+    </TextView>
+
+    </Toolbar>
+
+    <!--Text Input Edit Text ( product ref) -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/productRefTIL"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/productRefHint"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:theme="@style/Theme.MyApp"
+        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="4"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productRefTIET"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:background="@null"
+            android:inputType="number"
+            android:maxLength="4"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--Text Input Edit Text (product name) -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/productNameTIL"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/productNameHint"
+        app:layout_constraintTop_toBottomOf="@id/productRefTIL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:theme="@style/Theme.MyApp"
+        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="40">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productNameTIET"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:background="@null"
+            android:inputType="text"
+            android:maxLength="40"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--Text Input Edit Text ( unit price) -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/unitPriceTIL"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/unitPriceHint"
+        app:layout_constraintTop_toBottomOf="@id/productNameTIL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:theme="@style/Theme.MyApp"
+        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="20">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/unitPriceTIET"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:background="@null"
+            android:inputType="numberDecimal"
+            android:maxLength="20"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--Text Input Edit Text ( stock) -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/stockTIL"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/stockHint"
+        app:layout_constraintTop_toBottomOf="@id/unitPriceTIL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:theme="@style/Theme.MyApp"
+        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/stockTIET"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:background="@null"
+            android:inputType="number"
+            android:maxLength="4"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--Text Input Edit Text ( save button) -->
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="390dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stockTIL"
+        android:layout_marginTop="40dp"
+        android:text="@string/saveButton"
+        android:textSize="18sp"
+        android:textColor="@color/save_button_text_color"
+        android:background="@drawable/rounded_button"
+        android:enabled="false"
+        >
+    </Button>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

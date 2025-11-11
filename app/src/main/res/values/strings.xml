@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Inventory App</string>
+
     <string name="gestionar_inventario">Gestionar Inventario</string>
     <string name="cu_nto_tengo_de_inventario">¿Cuánto tengo de inventario?</string>
     <string name="inventory">Inventory</string>
@@ -8,11 +9,30 @@
     <string name="add_product">añadir producto\n</string>
     <string name="inventario">Inventario</string>
     <string name="fragment_login_window">fragment_login_window</string>
+    <!-- strings para la pantalla de edición -->
     <string name="edit_product_toolbar_title">Editar produto</string>
     <string name="edit_product_label_id">Id:</string>
     <string name="edit_product_hint_name">Nombre artículo</string>
     <string name="edit_product_hint_price">Precio</string>
     <string name="edit_product_hint_quantity">Cantidad</string>
     <string name="edit_product_button_edit">Editar</string>
+
+    <string name="addProduct">Agregar producto</string>
+
+    <string name="productRefHint">Código producto</string>
+    <string name="productNameHint">Nombre artículo</string>
+    <string name="unitPriceHint">Precio</string>
+    <string name="stockHint">Cantidad</string>
+
+    <string name="saveButton">Guardar</string>
+
+    <string name="product_detail_title">Detalle del producto</string>
+    <string name="product_detail_unit_price">Precio Unidad:</string>
+    <string name="product_detail_available_quantity">Cantidad Disponible:</string>
+    <string name="product_detail_total">Total:</string>
+    <string name="product_detail_delete_button">Eliminar</string>
+    <string name="product_detail_edit_description">Editar producto</string>
+
+
 
 </resources>

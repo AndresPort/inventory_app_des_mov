@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andresport.app_inventory.R
@@ -21,59 +22,75 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 
 class InventarioFragment : Fragment() {
+
     private lateinit var viewModel: ProductViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProductAdapter
+    private lateinit var fabAddProduct: FloatingActionButton
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_inventario, container, false)
 
+        // Configurar toolbar
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbarInventario)
-
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_logout -> {
-                    // Acción de cerrar sesión
+                    // Acción de cerrar sesión (pendiente)
                     true
                 }
                 else -> false
             }
         }
+
+        // Configurar RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewProducts)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = ProductAdapter()
         recyclerView.adapter = adapter
+
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // ✅ Inicializamos correctamente el ViewModel
-        val dao = AppDatabase.Companion.getInstance(requireContext()).productDao()
 
+        // Inicializar botón flotante
+        fabAddProduct = view.findViewById(R.id.fabAddProduct)
+        fabAddProduct.setOnClickListener {
+            openAddProductFragment()
+        }
+
+        // Inicializar ProgressBar
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+
+        // Inicializar ViewModel
+        val dao = AppDatabase.getInstance(requireContext()).productDao()
         val repository = ProductRepository(dao)
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory)[ProductViewModel::class.java]
-        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
-        val fabAdd = view.findViewById<FloatingActionButton>(R.id.fabAddProduct)
-        // Mostrar el progress mientras se cargan los productos
+
+        // Mostrar progress mientras se cargan los productos
         progressBar.visibility = View.VISIBLE
 
-        // Observa los productos
+        // Observar productos
         viewModel.products.observe(viewLifecycleOwner) { products ->
             adapter.setProducts(products)
-            // Ocultar progress cuando los productos ya están listos
+            // Ocultar progress cuando ya se cargaron los datos
             progressBar.visibility = View.GONE
         }
 
-        // Carga los productos
+        // Cargar productos desde la BD
         viewLifecycleOwner.lifecycleScope.launch {
-            val dao = AppDatabase.Companion.getInstance(requireContext()).productDao()
             viewModel.loadProducts()
         }
-        fabAdd.setOnClickListener {
-            // Sin funcionalidad por el momento
-        }
+
+    }
+
+    private fun openAddProductFragment() {
+        findNavController().navigate(R.id.action_inventarioFragment_to_addProductFragment)
     }
 }

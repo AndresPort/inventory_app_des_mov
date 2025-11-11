@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,13 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.andresport.app_inventory.R
 import com.andresport.app_inventory.data.AppDatabase
-import com.andresport.app_inventory.model.Product // Asegúrate de que esta importación esté
 import com.andresport.app_inventory.repository.ProductRepository
 import com.andresport.app_inventory.viewmodel.EditProductViewModel
 import com.andresport.app_inventory.viewmodel.ViewModelFactory
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
 
@@ -37,80 +35,84 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbarEditProduct)
-        toolbar.setNavigationOnClickListener {
+        // CRITERIO 1: Toolbar - Botón de retroceso
+        val returnIc = view.findViewById<ImageView>(R.id.returnIc)
+        returnIc.setOnClickListener {
             findNavController().navigateUp()
         }
 
+        // CRITERIO 2: ID no editable
         val tvProductValue = view.findViewById<TextView>(R.id.tvProductIdValue)
-        tvProductValue.text = args.productId.toString()
+        tvProductValue.text = args.productId
 
+        // CRITERIO 3: Campos
         val etName = view.findViewById<TextInputEditText>(R.id.etName)
         val etPrice = view.findViewById<TextInputEditText>(R.id.etPrice)
-        val etQuantity = view.findViewById<TextInputEditText>(R.id.etQuantity) // Campo para la cantidad a editar
+        val etQuantity = view.findViewById<TextInputEditText>(R.id.etQuantity)
         val btnSaveChanges = view.findViewById<Button>(R.id.btnSaveChanges)
 
-        val tilName = view.findViewById<TextInputLayout>(R.id.tilName)
-        val tilPrice = view.findViewById<TextInputLayout>(R.id.tilPrice)
-        val tilQuantity = view.findViewById<TextInputLayout>(R.id.tilQuantity)
+        // CRITERIO 5: Habilitar botón solo si TODOS los campos tienen texto
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val nameNotEmpty = etName.text?.isNotBlank() == true
+                val priceNotEmpty = etPrice.text?.isNotBlank() == true
+                val quantityNotEmpty = etQuantity.text?.isNotBlank() == true
 
-        // --- Observar los datos del producto para rellenar los campos ---
+                btnSaveChanges.isEnabled = nameNotEmpty && priceNotEmpty && quantityNotEmpty
+            }
+        }
+
+        etName.addTextChangedListener(textWatcher)
+        etPrice.addTextChangedListener(textWatcher)
+        etQuantity.addTextChangedListener(textWatcher)
+
+        // Observar y rellenar campos desde BD
         viewModel.product.observe(viewLifecycleOwner, Observer { product ->
             product?.let {
-
                 etName.setText(it.productName)
                 etPrice.setText(it.unitPrice.toString())
-                etQuantity.setText(it.stock.toString()) // Mostramos el stock actual como valor inicial
-
-                // Activar los layouts si ya tienen texto al cargar
-                tilName.isEnabled = etName.text.toString().isNotBlank()
-                tilPrice.isEnabled = etPrice.text.toString().isNotBlank()
-                tilQuantity.isEnabled = etQuantity.text.toString().isNotBlank()
+                etQuantity.setText(it.stock.toString())
+                // El TextWatcher habilitará el botón automáticamente
+            } ?: run {
+                Toast.makeText(requireContext(), "Producto no encontrado", Toast.LENGTH_SHORT).show()
+                findNavController().navigateUp()
             }
         })
 
-        // --- Lógica para el botón de "Editar" ---
+        // CRITERIO 4: Guardar cambios (UPDATE en BD)
         btnSaveChanges.setOnClickListener {
-            val newName = etName.text.toString()
-            val newPriceStr = etPrice.text.toString()
-            val newQuantityStr = etQuantity.text.toString() // Esta es la nueva cantidad
+            val newName = etName.text.toString().trim()
+            val newPriceStr = etPrice.text.toString().trim()
+            val newQuantityStr = etQuantity.text.toString().trim()
 
+            // Validaciones adicionales
             if (newName.isBlank() || newPriceStr.isBlank() || newQuantityStr.isBlank()) {
-                Toast.makeText(requireContext(), "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            // CRITERIO 6: Nombre máximo 40 caracteres (ya restringido por maxLength en XML)
+            // CRITERIO 7: Precio máximo 20 dígitos (ya restringido por maxLength en XML)
+            // CRITERIO 8: Cantidad máximo 4 dígitos (ya restringido por maxLength en XML)
 
             val newPrice = newPriceStr.toDoubleOrNull()
-            val newQuantity = newQuantityStr.toLongOrNull() // Usamos toLongOrNull para que coincida con 'stock: Long'
+            val newQuantity = newQuantityStr.toLongOrNull()
 
-            if (newPrice == null || newQuantity == null) {
-                Toast.makeText(requireContext(), "El precio y la cantidad deben ser números válidos", Toast.LENGTH_SHORT).show()
+            if (newPrice == null || newQuantity == null || newPrice <= 0 || newQuantity < 0) {
+                Toast.makeText(requireContext(), "Precio y cantidad deben ser números válidos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // Actualizar en BD
+            viewModel.updateProduct(args.productId, newName, newPrice, newQuantity)
 
-            // El `stock` en la base de datos se actualizará con la nueva cantidad.
-            viewModel.updateProduct(args.productId.toString(), newName, newPrice, newQuantity)
-
-            Toast.makeText(requireContext(), "Producto actualizado con éxito", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack()
+            Toast.makeText(requireContext(), "✅ Producto actualizado", Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
         }
 
-        // --- Lógica para el estilo dinámico de los campos de texto ---
-        fun setupTextWatcher(editText: TextInputEditText, textInputLayout: TextInputLayout) {
-            editText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(s: Editable?) {
-                    textInputLayout.isEnabled = !s.isNullOrBlank()
-                }
-            })
-        }
-
-        setupTextWatcher(etName, tilName)
-        setupTextWatcher(etPrice, tilPrice)
-        setupTextWatcher(etQuantity, tilQuantity)
-
-        viewModel.loadProduct(args.productId.toString())
+        // Cargar producto desde BD
+        viewModel.loadProduct(args.productId)
     }
 }

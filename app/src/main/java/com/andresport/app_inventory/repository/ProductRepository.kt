@@ -13,8 +13,11 @@ class ProductRepository(private val dao: ProductDao) {
     suspend fun updateProduct(product: Product) = dao.updateProduct(product)
 
     suspend fun deleteProduct(product: Product) = dao.deleteProduct(product)
-
     suspend fun getProductById(productRef: String): Product? {
+        return dao.getProductById(productRef)
+    }
+
+    /*suspend fun getProductById(productRef: String): Product? {
 
         // Opcional: simula un pequeño retraso de red/BD para que parezca más real
         delay(500)
@@ -31,5 +34,5 @@ class ProductRepository(private val dao: ProductDao) {
         /* --- CÓDIGO REAL que se deberia usar despues---
         return productDao.getProductById(productRef)
         */
-    }
+    }*/
 }

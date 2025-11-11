@@ -21,20 +21,49 @@
         android:label="Inventario"
         tools:layout="@layout/fragment_inventario">
 
+        <action
+            android:id="@+id/action_inventarioFragment_to_addProductFragment"
+            app:destination="@id/addProductFragment" />
+        <action
+            android:id="@+id/action_inventarioFragment_to_editProductFragment"
+            app:destination="@id/editProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.andresport.app_inventory.view.fragment.addProductFragment"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" >
+        <action
+            android:id="@+id/action_addProductFragment_to_inventarioFragment"
+            app:destination="@id/inventarioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.andresport.app_inventory.view.fragment.DetailProductFragment"
+        android:label="Detalle del producto"
+        tools:layout="@layout/fragment_product_detail" >
+
+        <action
+            android:id="@+id/action_productDetailFragment_to_inventarioFragment"
+            app:destination="@id/inventarioFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProductFragment"
         android:name="com.andresport.app_inventory.view.fragment.EditProductFragment"
-        android:label="EditProductFragment"
-        tools:layout="@layout/fragment_edit_product"> <!-- referencia al layout aquí -->
-
-
+        android:label="fragment_edit_product"
+        tools:layout="@layout/fragment_edit_product">
         <argument
             android:name="productId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            app:argType="string"
+            android:defaultValue="P001" />
 
+        <action
+            android:id="@+id/action_editProductFragment_to_inventarioFragment"
+            app:destination="@id/inventarioFragment"
+            app:popUpTo="@id/inventarioFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
 
 
 </navigation>

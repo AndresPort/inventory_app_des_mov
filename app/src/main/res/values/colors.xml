@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="orange">#FF5722</color>
+    <color name="white">#CCFFFFFF</color>
+    <color name="black">#CC000000</color>
+
     <color name="backgroundColor">#CC000000</color>
     <color name="backgroundToolBarColor">#424242</color>
-    <color name="buttonColor">#FF5722</color>
     <color name="background_dark">#24292E</color>
-    <color name="white_edit_product">#FFFFFFFF</color>
-    <color name="hint_color_inactive">#AAAAAA</color>
 
+    <color name="buttonColor">#FF5722</color>
+    <color name="disabledTextButtonColor">#4E1600</color>
+    <color name="commonTextColor">#FFFFFF</color>
+    <color name="borderColor">#A6A6A6</color>
 
+    <color name="backgroundCardProductDetail">#FFFFFF</color>
+    <color name="textCardProductDetail">#424242</color>
+    <color name="backgroundButtonProductDetail">#FF5722</color>
+    <color name="textWhiteProductDetail">#FFFFFF</color>
+    <color name="iconProductDetails">#FFFFFF</color>
+    <color name="priceProductDetail">#FF5722</color>
 </resources>
