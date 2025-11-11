@@ -171,6 +171,7 @@
         android:textColor="@color/save_button_text_color"
         android:background="@drawable/rounded_button"
         android:enabled="false"
+        app:backgroundTint="@color/button_background_color_selector"
         >
     </Button>
 
