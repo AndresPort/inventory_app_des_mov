@@ -6,50 +6,60 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.andresport.app_inventory.utils.SessionManager
 
+
+// PASO 1: Definir los posibles estados de autenticación con una Sealed Class.
+// Esto nos permite manejar todos los casos (logueado, no logueado, error) en un solo lugar.
+sealed class AuthenticationState {
+    object AUTHENTICATED : AuthenticationState()
+    object UNAUTHENTICATED : AuthenticationState()
+    data class AUTH_ERROR(val message: String) : AuthenticationState()
+}
+
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
-    // Se inicializa el gestor de sesión para manejar los datos del usuario.
     private val sessionManager = SessionManager(application)
 
-    // LiveData que notifica a la vista cuando el inicio de sesión es exitoso.
-    private val _loginSuccess = MutableLiveData<Boolean>()
-    val loginSuccess: LiveData<Boolean> = _loginSuccess
+    // PASO 2: Usar un único LiveData para manejar el estado.
+    private val _authenticationState = MutableLiveData<AuthenticationState>()
+    val authenticationState: LiveData<AuthenticationState> = _authenticationState
 
-    // LiveData que envía mensajes a la vista para ser mostrados.
+    // LiveData para mensajes Toast, esto lo mantenemos igual.
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String> = _toastMessage
 
-    // LiveData que comunica a la vista si ya existe una sesión activa.
-    private val _isUserLoggedIn = MutableLiveData<Boolean>()
-    val isUserLoggedIn: LiveData<Boolean> = _isUserLoggedIn
-
     /**
-     * Esta función es para verificar si hay una sesión de usuario guardada.
-     * Se obtiene el token de autenticación y se actualiza el LiveData _isUserLoggedIn.
+     * Verifica si hay una sesión activa al iniciar la app.
      */
     fun checkUserLoggedIn() {
-        // Aquí se obtiene el token guardado en SharedPreferences.
         val token = sessionManager.fetchAuthToken()
-        // Se notifica a la vista si el token existe o no.
-        _isUserLoggedIn.value = !token.isNullOrEmpty()
+        if (!token.isNullOrEmpty()) {
+            _authenticationState.value = AuthenticationState.AUTHENTICATED
+        } else {
+            _authenticationState.value = AuthenticationState.UNAUTHENTICATED
+        }
     }
 
     /**
-     * Esta función se ejecuta cuando la autenticación biométrica es correcta.
-     * Se guarda un token de sesión para mantener al usuario conectado.
+     * Se ejecuta cuando la autenticación biométrica es correcta.
      */
     fun onAuthenticationSuccess() {
-        // Se guarda un token para identificar que la sesión está activa.
-        sessionManager.saveAuthToken("user_logged_in") 
-        // Se notifica a la vista que el login fue exitoso para navegar a la siguiente pantalla.
-        _loginSuccess.value = true
+        sessionManager.saveAuthToken("user_logged_in")
+        _authenticationState.value = AuthenticationState.AUTHENTICATED
     }
 
     /**
-     * La función recibe un mensaje de error o fallo en la autenticación.
-     * Se asigna el mensaje al LiveData para que la vista lo muestre.
+     * Se ejecuta al fallar la autenticación.
      */
     fun onAuthenticationFailureOrError(message: String) {
+        // En lugar de cambiar el estado principal, solo mostramos un mensaje.
         _toastMessage.value = message
+    }
+
+    /**
+     * Cierra la sesión del usuario. Esta función será llamada desde InventarioFragment.
+     */
+    fun logout() {
+        sessionManager.clearAuthToken() // Asumiendo que SessionManager tiene esta función.
+        _authenticationState.value = AuthenticationState.UNAUTHENTICATED
     }
 }

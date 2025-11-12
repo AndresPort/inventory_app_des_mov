@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Este archivo define las propiedades del widget de la aplicación. -->
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android">
     
     <!-- Ancho y alto mínimos del widget. -->
     android:minWidth="250dp"

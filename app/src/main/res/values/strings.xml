@@ -25,6 +25,7 @@
     <string name="stockHint">Cantidad</string>
 
     <string name="saveButton">Guardar</string>
+    <string name="Title_Inventory">Inventory</string>
 
     <string name="product_detail_title">Detalle del producto</string>
     <string name="product_detail_unit_price">Precio Unidad:</string>
