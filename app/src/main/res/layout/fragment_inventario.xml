@@ -9,7 +9,6 @@
     android:fitsSystemWindows="true"
     tools:ignore="ExtraText">
     tools:context=".view.InventarioFragment">
-    <!-- Toolbar superior -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbarInventario"
         android:layout_width="match_parent"
@@ -22,8 +21,6 @@
         app:navigationIconTint="@android:color/white"
         app:title="@string/inventario"
         app:titleTextColor="@android:color/white" />
-    <!-- Lista de productos -->
-    <!-- ProgressBar circular naranja -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProducts"
@@ -44,7 +41,6 @@
         android:visibility="gone"
         android:indeterminateTint="@color/orange" />
 
-    <!-- Botón flotante (+) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddProduct"
         android:layout_width="wrap_content"

@@ -7,36 +7,43 @@
     android:background="@color/backgroundColor"
     tools:context=".view.fragment.EditProductFragment">
 
-    <!-- Toolbar -->
-    <Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="20dp"
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/backgroundToolBarColor">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/returnIc"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_left"
-            app:tint="@color/white" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/backgroundToolBarColor">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="@string/edit_product_toolbar_title"
-            android:textColor="@color/commonTextColor"
-            android:textSize="22sp"
-            android:gravity="center" />
+            <ImageView
+                android:id="@+id/returnIc"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_left"
+                app:tint="@color/white" />
 
-    </Toolbar>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="@string/edit_product_toolbar_title"
+                android:textColor="@color/commonTextColor"
+                android:textSize="22sp"
+                android:gravity="center" />
 
-    <!-- Sección del ID -->
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <TextView
         android:id="@+id/tvIdLabel"
         android:layout_width="wrap_content"
@@ -47,7 +54,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
     <TextView
         android:id="@+id/tvProductIdValue"
@@ -61,7 +68,6 @@
         app:layout_constraintStart_toEndOf="@+id/tvIdLabel"
         tools:text="001" />
 
-    <!-- Campo Nombre -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/productNameTIL"
         android:layout_width="0dp"
@@ -90,7 +96,6 @@
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Campo Precio -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/unitPriceTIL"
         android:layout_width="0dp"
@@ -119,7 +124,6 @@
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Campo Cantidad -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/stockTIL"
         android:layout_width="0dp"
@@ -147,8 +151,6 @@
             android:textColorHint="@color/white"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Botón Editar -->
 
     <Button
         android:id="@+id/btnSaveChanges"
