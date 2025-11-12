@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Este archivo define las propiedades del widget de la aplicación. -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <!-- Ancho y alto mínimos del widget. -->
     android:minWidth="250dp"
     android:minHeight="80dp"
-    
-    <!-- Ancho y alto objetivo en celdas de la pantalla de inicio. -->
     android:targetCellWidth="4"
     android:targetCellHeight="2"
-    
-    <!-- Frecuencia de actualización del widget (en milisegundos). 86400000ms = 24 horas. -->
     android:updatePeriodMillis="86400000"
-    
-    <!-- Vista previa del widget que se muestra en el selector de widgets. -->
     android:previewImage="@mipmap/ic_launcher"
-    
-    <!-- Layout inicial del widget. -->
     android:initialLayout="@layout/inventory_widget"
-    
-    <!-- Define si el widget puede ser redimensionado horizontal y/o verticalmente. -->
     android:resizeMode="horizontal|vertical"
-    
-    <!-- Categoría del widget (en este caso, para la pantalla de inicio). -->
     android:widgetCategory="home_screen">
 </appwidget-provider>
