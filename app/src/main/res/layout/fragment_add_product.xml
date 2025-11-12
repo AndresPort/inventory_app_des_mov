@@ -48,7 +48,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/productRefTIL"
-        android:layout_width="380dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:hint="@string/productRefHint"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -78,7 +78,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/productNameTIL"
-        android:layout_width="380dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:hint="@string/productNameHint"
         app:layout_constraintTop_toBottomOf="@id/productRefTIL"
@@ -106,7 +106,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/unitPriceTIL"
-        android:layout_width="380dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:hint="@string/unitPriceHint"
         app:layout_constraintTop_toBottomOf="@id/productNameTIL"
@@ -134,7 +134,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/stockTIL"
-        android:layout_width="380dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:hint="@string/stockHint"
         app:layout_constraintTop_toBottomOf="@id/unitPriceTIL"
@@ -162,7 +162,7 @@
 
     <Button
         android:id="@+id/saveBtn"
-        android:layout_width="390dp"
+        android:layout_width="330dp"
         android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
