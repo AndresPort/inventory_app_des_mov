@@ -75,4 +75,8 @@ class ProductViewModel(private val repository: ProductRepository) : ViewModel() 
             loadProducts()
         }
     }
+
+    suspend fun getProductById(productRef: String): Product? {
+        return repository.getProductById(productRef)
+    }
 }

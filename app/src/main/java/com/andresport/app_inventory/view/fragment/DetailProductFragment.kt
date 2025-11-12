@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,9 +13,11 @@ import com.andresport.app_inventory.R
 import com.andresport.app_inventory.databinding.FragmentProductDetailBinding
 import com.andresport.app_inventory.viewmodel.ProductViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.andresport.app_inventory.repository.ProductRepository
 import com.andresport.app_inventory.data.AppDatabase
 import com.andresport.app_inventory.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class DetailProductFragment : Fragment() {
 
@@ -52,9 +56,43 @@ class DetailProductFragment : Fragment() {
             binding.txtTotal.text = String.format("$ %, .2f", product.total)
         }
 
+        binding.btnDelete.setOnClickListener {
+            showDeleteConfirmationDialog()
+        }
+
         return binding.root
     }
+    private fun showDeleteConfirmationDialog() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        builder.setTitle("Confirmar eliminación")
+        builder.setMessage("¿Estás seguro de que deseas eliminar este producto?")
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.setPositiveButton("Sí") { dialog, _ ->
+            val productRef = arguments?.getString("productRef")
+            if (productRef != null) {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val product = viewModel.getProductById(productRef)
+                    if (product != null) {
+                        viewModel.deleteProduct(product)
+                        Toast.makeText(requireContext(), "Producto eliminado", Toast.LENGTH_SHORT).show()
 
+                        findNavController().navigate(R.id.action_productDetailFragment_to_inventarioFragment)
+                    }
+                }
+            }
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
+
+        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
+            ?.setTextColor(ContextCompat.getColor(requireContext(), R.color.showDialog))
+
+        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE)
+            ?.setTextColor(ContextCompat.getColor(requireContext(), R.color.showDialog))
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -22,4 +22,5 @@
     <color name="priceProductDetail">#FF5722</color>
     <color name="textTitlesProductDetail">#CC000000</color>
     <color name="resultsProductDetail">#FF5722</color>
+    <color name="showDialog">#4F3BAD</color>
 </resources>
