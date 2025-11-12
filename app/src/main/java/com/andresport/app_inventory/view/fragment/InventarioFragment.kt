@@ -63,13 +63,15 @@ class InventarioFragment : Fragment(R.layout.fragment_inventario) {
         // --- Resto de tu código de inicialización (sin cambios) ---
 
         // Inicializar RecyclerView
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewProducts)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = ProductAdapter { selectedProduct ->
-            val bundle = Bundle()
-            bundle.putString("productRef", selectedProduct.productRef)
+            val bundle = Bundle().apply {
+                putString("productRef", selectedProduct.productRef)
+            }
             findNavController().navigate(R.id.action_inventarioFragment_to_detailProductFragment, bundle)
         }
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewProducts)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
         // Inicializar botón flotante

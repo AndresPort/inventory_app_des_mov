@@ -7,24 +7,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.andresport.app_inventory.R
-import com.andresport.app_inventory.databinding.FragmentProductDetailBinding
-import com.andresport.app_inventory.viewmodel.ProductViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.andresport.app_inventory.repository.ProductRepository
+import androidx.navigation.fragment.findNavController
+import com.andresport.app_inventory.R
 import com.andresport.app_inventory.data.AppDatabase
+import com.andresport.app_inventory.databinding.FragmentProductDetailBinding
+import com.andresport.app_inventory.repository.ProductRepository
+import com.andresport.app_inventory.viewmodel.ProductViewModel
 import com.andresport.app_inventory.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
 class DetailProductFragment : Fragment() {
-
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: ProductViewModel
+    private var productRef: String? = null
+    private var currentProduct: com.andresport.app_inventory.model.Product? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,6 @@ class DetailProductFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        // Inicializar ViewModel con tu repositorio y base de datos
         val dao = AppDatabase.getInstance(requireContext()).productDao()
         val repository = ProductRepository(dao)
         viewModel = ViewModelProvider(
@@ -44,24 +44,43 @@ class DetailProductFragment : Fragment() {
             ViewModelFactory(repository)
         )[ProductViewModel::class.java]
 
-        val productRef = arguments?.getString("productRef")
+        productRef = arguments?.getString("productRef")
+
         productRef?.let {
             viewModel.loadProductByRef(it)
         }
-        // Observar los datos
+
         viewModel.selectedProduct.observe(viewLifecycleOwner) { product ->
-            binding.txtProductName.text = product.productName
-            binding.txtUnitPrice.text = String.format("$ %, .2f", product.unitPrice)
-            binding.txtStock.text = product.stock.toString()
-            binding.txtTotal.text = String.format("$ %, .2f", product.total)
+            if (product != null) {
+                currentProduct = product
+
+                binding.txtProductName.text = product.productName
+                binding.txtUnitPrice.text = String.format("$ %,.2f", product.unitPrice)
+                binding.txtStock.text = product.stock.toString()
+                binding.txtTotal.text = String.format("$ %,.2f", product.total)
+            }
         }
 
         binding.btnDelete.setOnClickListener {
             showDeleteConfirmationDialog()
         }
 
+        binding.btnEditar.setOnClickListener {
+            currentProduct?.let { product ->
+                val bundle = Bundle().apply {
+                    putString("productRef", product.productRef)
+                }
+
+                findNavController().navigate(R.id.action_productDetailFragment_to_editProductFragment, bundle)
+
+            } ?: run {
+                Toast.makeText(context, "No se pudo obtener la referencia del producto", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         return binding.root
     }
+
     private fun showDeleteConfirmationDialog() {
         val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
         builder.setTitle("Confirmar eliminación")
@@ -70,13 +89,16 @@ class DetailProductFragment : Fragment() {
             dialog.dismiss()
         }
         builder.setPositiveButton("Sí") { dialog, _ ->
-            val productRef = arguments?.getString("productRef")
-            if (productRef != null) {
+            productRef?.let { ref ->
                 viewLifecycleOwner.lifecycleScope.launch {
-                    val product = viewModel.getProductById(productRef)
+                    val product = viewModel.getProductById(ref)
                     if (product != null) {
                         viewModel.deleteProduct(product)
-                        Toast.makeText(requireContext(), "Producto eliminado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Producto eliminado correctamente",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                         findNavController().navigate(R.id.action_productDetailFragment_to_inventarioFragment)
                     }
@@ -93,6 +115,7 @@ class DetailProductFragment : Fragment() {
         dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE)
             ?.setTextColor(ContextCompat.getColor(requireContext(), R.color.showDialog))
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
