@@ -18,24 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        lifecycleScope.launch {
-            val db = AppDatabase.getInstance(this@MainActivity)
-
-            // Verificar si ya existe
-            val exists = db.productDao().getProductById("P001")
-            if (exists == null) {
-                val productoTest = Product(
-                    productRef = "P001",
-                    productName = "Laptop HP Pavilion",
-                    unitPrice = 1200.50,
-                    stock = 10L
-                )
-                db.productDao().insertProduct(productoTest)
-                android.util.Log.d("MainActivity", " Producto P001 insertado")
-            }
-        }
-
-
 
     }
 }

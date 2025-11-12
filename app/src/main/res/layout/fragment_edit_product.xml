@@ -59,7 +59,7 @@
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvIdLabel"
         app:layout_constraintStart_toEndOf="@+id/tvIdLabel"
-        tools:text="P001" />
+        tools:text="001" />
 
     <!-- Campo Nombre -->
     <com.google.android.material.textfield.TextInputLayout
