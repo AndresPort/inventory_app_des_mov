@@ -12,8 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-
 import androidx.fragment.app.setFragmentResult
 import com.andresport.app_inventory.R
 import com.andresport.app_inventory.data.AppDatabase
@@ -23,9 +21,7 @@ import com.andresport.app_inventory.viewmodel.ViewModelFactory
 import com.google.android.material.textfield.TextInputEditText
 
 class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
-
-    private val args: EditProductFragmentArgs by navArgs()
-
+    private var productId: String? = null // variable local para guardar el ID del producto
     private val viewModel: EditProductViewModel by viewModels {
         ViewModelFactory(
             ProductRepository(
@@ -36,16 +32,23 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        productId = arguments?.getString("productRef")
+
+        if (productId.isNullOrBlank()) {
+            Toast.makeText(requireContext(), "Error: No se pudo obtener la referencia del producto", Toast.LENGTH_LONG).show()
+            findNavController().popBackStack() // Regresa a la pantalla anterior si no hay ID
+            return
+        }
 
         // CRITERIO 1: Toolbar - Botón de retroceso
         val returnIc = view.findViewById<ImageView>(R.id.returnIc)
         returnIc.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
 
         // CRITERIO 2: ID no editable
         val tvProductValue = view.findViewById<TextView>(R.id.tvProductIdValue)
-        tvProductValue.text = args.productId
+        tvProductValue.text = productId
 
         // CRITERIO 3: Campos
         val etName = view.findViewById<TextInputEditText>(R.id.etName)
@@ -76,10 +79,9 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
                 etName.setText(it.productName)
                 etPrice.setText(it.unitPrice.toString())
                 etQuantity.setText(it.stock.toString())
-                // El TextWatcher habilitará el botón automáticamente
             } ?: run {
-                Toast.makeText(requireContext(), "Producto no encontrado", Toast.LENGTH_SHORT).show()
-                findNavController().navigateUp()
+                Toast.makeText(requireContext(), "Producto no encontrado en la base de datos", Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
             }
         })
 
@@ -88,12 +90,6 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
             val newName = etName.text.toString().trim()
             val newPriceStr = etPrice.text.toString().trim()
             val newQuantityStr = etQuantity.text.toString().trim()
-
-            if (newName.isBlank() || newPriceStr.isBlank() || newQuantityStr.isBlank()) {
-                Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             val newPrice = newPriceStr.toDoubleOrNull()
             val newQuantity = newQuantityStr.toLongOrNull()
 
@@ -103,22 +99,13 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
             }
 
             // Actualizar en BD
-            viewModel.updateProduct(args.productId, newName, newPrice, newQuantity)
-
-            // ENVIAR RESULTADO al Inventario
-            val result = Bundle().apply {
-                putBoolean("productUpdated", true)
-                putString("updatedProductId", args.productId)
-            }
-            setFragmentResult("editProductRequest", result)
+            viewModel.updateProduct(productId!!, newName, newPrice, newQuantity)
 
             Toast.makeText(requireContext(), "Producto actualizado", Toast.LENGTH_SHORT).show()
-
-            // NAVEGAR DIRECTAMENTE A INVENTARIO
             findNavController().navigate(R.id.action_editProductFragment_to_inventarioFragment)
         }
 
         // Cargar producto desde BD
-        viewModel.loadProduct(args.productId)
+        viewModel.loadProduct(productId!!)
     }
 }
