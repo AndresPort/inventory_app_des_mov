@@ -14,7 +14,7 @@
         android:id="@+id/toolbarInventario"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#424242"
+        android:background="@color/backgroundToolBarColor"
         android:elevation="4dp"
         android:theme="?attr/actionBarTheme"
         app:menu="@menu/menu_toolbar_inventario"
