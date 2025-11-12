@@ -15,4 +15,7 @@ data class Product(
     val unitPrice: Double,                // Decimal(10,2)
     @ColumnInfo(name = "stock")
     val stock: Long                       // bigint
-)
+){
+    val total: Double
+        get() = unitPrice * stock
+}

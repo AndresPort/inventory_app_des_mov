@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_inventarioFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
+        <action
+            android:id="@+id/action_inventarioFragment_to_detailProductFragment"
+            app:destination="@id/productDetailFragment" />
 
         <action
             android:id="@+id/action_inventarioFragment_to_LoginFragment"
@@ -47,17 +50,6 @@
             app:popUpTo="@id/inventarioFragment"
             app:popUpToInclusive="true"/>
     </fragment>
-
-    <fragment
-        android:id="@+id/productDetailFragment"
-        android:name="com.andresport.app_inventory.view.fragment.DetailProductFragment"
-        android:label="Detalle del producto"
-        tools:layout="@layout/fragment_product_detail" >
-        <action
-            android:id="@+id/action_productDetailFragment_to_inventarioFragment"
-            app:destination="@id/inventarioFragment" />
-    </fragment>
-
     <fragment
         android:id="@+id/editProductFragment"
         android:name="com.andresport.app_inventory.view.fragment.EditProductFragment"
@@ -72,6 +64,21 @@
             app:destination="@id/inventarioFragment"
             app:popUpTo="@id/inventarioFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.andresport.app_inventory.view.fragment.DetailProductFragment"
+        android:label="Detalle del Producto"
+        tools:layout="@layout/fragment_product_detail">
+
+        <argument
+            android:name="productRef"
+            app:argType="string"
+            android:defaultValue=""/>
+
+        <action
+            android:id="@+id/action_productDetailFragment_to_inventarioFragment"
+            app:destination="@id/inventarioFragment" />
     </fragment>
 
 </navigation>

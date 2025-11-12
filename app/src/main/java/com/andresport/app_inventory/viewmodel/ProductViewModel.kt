@@ -6,14 +6,18 @@ import com.andresport.app_inventory.repository.ProductRepository
 import com.andresport.app_inventory.model.Product
 
 class ProductViewModel(private val repository: ProductRepository) : ViewModel() {
-
     private val _products = MutableLiveData<List<Product>>()
     val products: LiveData<List<Product>> get() = _products
+
+    private val _selectedProduct = MutableLiveData<Product>()
+    val selectedProduct: LiveData<Product> get() = _selectedProduct
+
+    private val _totalSum = MutableLiveData<Double>()
+    val totalSum: LiveData<Double> get() = _totalSum
 
     fun loadProducts() {
         viewModelScope.launch {
             val entities = repository.getAllProducts()
-            // map Product -> UI model Product
             _products.value = entities.map { e ->
                 Product(
                     productRef = e.productRef,
@@ -22,6 +26,14 @@ class ProductViewModel(private val repository: ProductRepository) : ViewModel() 
                     stock = e.stock
                 )
             }
+            _totalSum.value = entities.sumOf { it.total }
+        }
+    }
+
+    fun loadProductByRef(productRef: String) {
+        viewModelScope.launch {
+            val product = repository.getProductById(productRef)
+            product?.let { _selectedProduct.value = it }
         }
     }
 

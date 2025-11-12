@@ -20,4 +20,6 @@
     <color name="textWhiteProductDetail">#FFFFFF</color>
     <color name="iconProductDetails">#FFFFFF</color>
     <color name="priceProductDetail">#FF5722</color>
+    <color name="textTitlesProductDetail">#CC000000</color>
+    <color name="resultsProductDetail">#FF5722</color>
 </resources>
