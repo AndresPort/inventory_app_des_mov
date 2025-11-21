@@ -1,10 +1,12 @@
 package com.andresport.app_inventory.view
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.andresport.app_inventory.R
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -43,9 +45,21 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        val emailEditText = view.findViewById<TextInputEditText>(R.id.emailEditText)
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.passwordEditText)
         val passwordInputLayout = view.findViewById<TextInputLayout>(R.id.passwordInputLayout)
+        val loginButton = view.findViewById<Button>(R.id.loginButton)
 
+        // Función para actualizar estado del botón
+        fun updateLoginButtonState() {
+            val enabled = emailEditText.text?.isNotEmpty() == true && passwordEditText.text?.length ?: 0 >= 6
+            loginButton.isEnabled = enabled
+            loginButton.setTextColor(if (enabled) Color.WHITE else Color.parseColor("#B0B0B0"))
+        }
+        // Escuchar cambios en los campos
+        emailEditText.addTextChangedListener { updateLoginButtonState() }
+        passwordEditText.addTextChangedListener { updateLoginButtonState() }
         passwordEditText.addTextChangedListener { text ->
             val input = text.toString()
 
