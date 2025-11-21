@@ -12,15 +12,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/authNavHost"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/auth_nav_graph"
-        app:layout_constraintTop_toBottomOf="@id/authLogo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+    <fragment
+        android:id="@+id/tempFragment"
+        android:name="com.andresport.app_inventory.view.LoginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

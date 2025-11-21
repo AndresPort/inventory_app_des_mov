@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.andresport.app_inventory.R
+import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,9 +38,38 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val passwordEditText = view.findViewById<TextInputEditText>(R.id.passwordEditText)
+        val passwordInputLayout = view.findViewById<TextInputLayout>(R.id.passwordInputLayout)
+
+        passwordEditText.addTextChangedListener { text ->
+            val input = text.toString()
+
+            // Solo números
+            if (input.any { !it.isDigit() }) {
+                passwordInputLayout.error = "Solo números"
+                return@addTextChangedListener
+            }
+
+            // Validación mínima
+            if (input.length < 6) {
+                passwordInputLayout.error = "Mínimo 6 dígitos"
+                passwordInputLayout.setBoxStrokeColor(
+                    ContextCompat.getColor(requireContext(), android.R.color.holo_red_light)
+                )
+            } else {
+                passwordInputLayout.error = null
+                passwordInputLayout.setBoxStrokeColor(
+                    ContextCompat.getColor(requireContext(), android.R.color.white)
+                )
+            }
+        }
+    }
+
 
     companion object {
         /**
