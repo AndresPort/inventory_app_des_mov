@@ -6,15 +6,16 @@
 
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.andresport.app_inventory.view.fragment.LoginFragment"
-        android:label="@string/fragment_login_window"
-        tools:layout="@layout/fragment_login_window">
+        android:name="com.andresport.app_inventory.view.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+
         <action
             android:id="@+id/action_LoginFragment_to_InventarioFragment"
-            app:destination="@id/inventarioFragment"
-            app:popUpTo="@id/LoginFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/inventarioFragment" />
     </fragment>
+
+
 
     <fragment
         android:id="@+id/inventarioFragment"
