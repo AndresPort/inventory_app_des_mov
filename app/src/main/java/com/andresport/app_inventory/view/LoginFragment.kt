@@ -1,6 +1,7 @@
 package com.andresport.app_inventory.view
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -53,10 +54,20 @@ class LoginFragment : Fragment() {
 
         // Función para actualizar estado del botón
         fun updateLoginButtonState() {
-            val enabled = emailEditText.text?.isNotEmpty() == true && passwordEditText.text?.length ?: 0 >= 6
+            val enabled = emailEditText.text?.isNotEmpty() == true &&
+                    passwordEditText.text?.length ?: 0 >= 6
             loginButton.isEnabled = enabled
-            loginButton.setTextColor(if (enabled) Color.WHITE else Color.parseColor("#B0B0B0"))
+
+            // Cambiar color y estilo del texto según el estado
+            if (enabled) {
+                loginButton.setTextColor(Color.WHITE)
+                loginButton.setTypeface(null, Typeface.BOLD)
+            } else {
+                loginButton.setTextColor(Color.parseColor("#B0B0B0")) // gris
+                loginButton.setTypeface(null, Typeface.NORMAL)
+            }
         }
+
         // Escuchar cambios en los campos
         emailEditText.addTextChangedListener { updateLoginButtonState() }
         passwordEditText.addTextChangedListener { updateLoginButtonState() }
