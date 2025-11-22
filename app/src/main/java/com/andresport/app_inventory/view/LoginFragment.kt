@@ -102,41 +102,32 @@ class LoginFragment : Fragment() {
             val email = emailEditText.text?.toString()?.trim() ?: ""
             val password = passwordEditText.text?.toString() ?: ""
 
-            // Chequeo simple antes de llamar a Firebase (opcional)
+            // Validación local mínima
             if (email.isEmpty() || password.length < 6) {
                 Toast.makeText(requireContext(), "Login incorrecto", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Llamada a Firebase Auth
+            // Validación real usando Firebase
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val action = LoginFragmentDirections.actionLoginFragmentToInventarioFragment()
                         findNavController().navigate(action)
                     } else {
-                        val exception = task.exception
-                        val message = when {
-                            exception?.message?.contains("no user record", true) == true ->
-                                "El correo no está registrado"
-
-                            exception?.message?.contains("password is invalid", true) == true ->
-                                "Contraseña incorrecta"
-
-                            exception?.message?.contains("network error", true) == true ->
-                                "Sin conexión a internet"
-
-                            exception?.message?.contains("badly formatted", true) == true ->
-                                "Correo inválido"
-
+                        val errorMessage = when (task.exception?.message) {
+                            "The email address is badly formatted." -> "Formato de correo inválido"
+                            "There is no user record corresponding to this identifier." -> "Usuario no registrado"
+                            "The password is invalid or the user does not have a password." -> "Contraseña incorrecta"
                             else -> "Login incorrecto"
                         }
 
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
 
         }
+
     }
 
 
