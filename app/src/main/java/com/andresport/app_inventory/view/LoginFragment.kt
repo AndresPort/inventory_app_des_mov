@@ -128,6 +128,7 @@ class LoginFragment : Fragment() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        Toast.makeText(requireContext(), "Login exitoso", Toast.LENGTH_SHORT).show()
                         val action = LoginFragmentDirections.actionLoginFragmentToInventarioFragment()
                         findNavController().navigate(action)
                     } else {
@@ -155,7 +156,10 @@ class LoginFragment : Fragment() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Aquí aún no navegamos (eso es el criterio 14)
+                        Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
+                        // Registro exitoso -> navegar a Ventana Home Inventario
+                        val action = LoginFragmentDirections.actionLoginFragmentToInventarioFragment()
+                        findNavController().navigate(action)
                     } else {
                         Toast.makeText(requireContext(), "Error en el registro", Toast.LENGTH_SHORT).show()
                     }
