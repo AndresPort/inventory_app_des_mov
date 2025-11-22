@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "291371811948",
+    "project_id": "grupotres-d6d04",
+    "storage_bucket": "grupotres-d6d04.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291371811948:android:15033f6c2aabe41f654449",
+        "android_client_info": {
+          "package_name": "com.andresport.app_inventory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUKcCLfnCBQRAGzqQ_1MqF68hvIkU5ktI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
