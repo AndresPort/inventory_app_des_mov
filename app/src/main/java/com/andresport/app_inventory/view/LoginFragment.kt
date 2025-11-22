@@ -1,5 +1,6 @@
 package com.andresport.app_inventory.view
 
+import android.R.attr.enabled
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -55,11 +56,16 @@ class LoginFragment : Fragment() {
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.passwordEditText)
         val passwordInputLayout = view.findViewById<TextInputLayout>(R.id.passwordInputLayout)
         val loginButton = view.findViewById<Button>(R.id.loginButton)
+        val registerButton = view.findViewById<Button>(R.id.registerButton)
+
 
         // Función para actualizar estado del botón
         fun updateLoginButtonState() {
+
             val enabled = emailEditText.text?.isNotEmpty() == true &&
-                    passwordEditText.text?.length ?: 0 >= 6
+                    (passwordEditText.text?.length ?: 0) >= 6
+
+
             loginButton.isEnabled = enabled
 
             // Cambiar color y estilo del texto según el estado
@@ -69,6 +75,16 @@ class LoginFragment : Fragment() {
             } else {
                 loginButton.setTextColor(Color.parseColor("#B0B0B0")) // gris
                 loginButton.setTypeface(null, Typeface.NORMAL)
+            }
+            // Activar o desactivar botón Registrarse
+            registerButton.isEnabled = enabled
+            // Cambiar su color según estado
+            if (enabled) {
+                registerButton.setTextColor(Color.WHITE)
+                registerButton.setTypeface(null, Typeface.BOLD)
+            } else {
+                registerButton.setTextColor(Color.parseColor("#9EA1A1")) // gris
+                registerButton.setTypeface(null, Typeface.NORMAL)
             }
         }
 
