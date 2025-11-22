@@ -48,6 +48,8 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // Detectar si el usuario viene del widget
+        val fromWidget = activity?.intent?.getBooleanExtra("FROM_WIDGET", false) ?: false
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
 
@@ -129,8 +131,10 @@ class LoginFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(requireContext(), "Login exitoso", Toast.LENGTH_SHORT).show()
-                        val action = LoginFragmentDirections.actionLoginFragmentToInventarioFragment()
-                        findNavController().navigate(action)
+                        if (!fromWidget) { // solo redirige si no viene del widget
+                            val action = LoginFragmentDirections.actionLoginFragmentToInventarioFragment()
+                            findNavController().navigate(action)
+                        }
                     } else {
                         val errorMessage = when (task.exception?.message) {
                             "The email address is badly formatted." -> "Formato de correo inválido"
@@ -157,10 +161,12 @@ class LoginFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
-                        // Registro exitoso -> navegar a Ventana Home Inventario
-                        val action = LoginFragmentDirections.actionLoginFragmentToInventarioFragment()
-                        findNavController().navigate(action)
-                    } else {
+                        if (!fromWidget) { // solo redirige si no viene del widget
+                            val action = LoginFragmentDirections.actionLoginFragmentToInventarioFragment()
+                            findNavController().navigate(action)
+                        }
+                    }
+                    else {
                         Toast.makeText(requireContext(), "Error en el registro", Toast.LENGTH_SHORT).show()
                     }
                 }
