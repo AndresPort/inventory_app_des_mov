@@ -7,6 +7,7 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+
 android {
     namespace 'com.andresport.app_inventory'
     compileSdk 36
@@ -41,6 +42,7 @@ android {
         dataBinding true
         viewBinding true
     }
+
 }
 
 dependencies {
@@ -50,6 +52,10 @@ dependencies {
     // TODO: Add the dependencies for Firebase products you want to use
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics'
+
+    // Firebase Auth
+    implementation 'com.google.firebase:firebase-auth-ktx:22.3.1'
+
 
     implementation 'com.google.android.material:material:1.12.0'
 
@@ -63,6 +69,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.4"
 
+
     //lattie animation
     implementation "com.airbnb.android:lottie:6.4.1"
 
@@ -72,7 +79,6 @@ dependencies {
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.8.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.8.3'
-    implementation 'com.google.firebase:firebase-auth:24.0.1'
 
     // Room
     implementation "androidx.room:room-runtime:2.7.0-beta01"

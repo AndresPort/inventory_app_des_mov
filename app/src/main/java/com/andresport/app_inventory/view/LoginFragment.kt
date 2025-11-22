@@ -8,16 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import com.andresport.app_inventory.R
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-
+import com.google.firebase.auth.FirebaseAuth
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private lateinit var auth: FirebaseAuth
 
 /**
  * A simple [Fragment] subclass.
@@ -45,6 +48,7 @@ class LoginFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
 
 
         val emailEditText = view.findViewById<TextInputEditText>(R.id.emailEditText)
@@ -92,6 +96,46 @@ class LoginFragment : Fragment() {
                     ContextCompat.getColor(requireContext(), android.R.color.white)
                 )
             }
+        }
+        // Código del Paso 3: iniciar sesión con Firebase
+        loginButton.setOnClickListener {
+            val email = emailEditText.text?.toString()?.trim() ?: ""
+            val password = passwordEditText.text?.toString() ?: ""
+
+            // Chequeo simple antes de llamar a Firebase (opcional)
+            if (email.isEmpty() || password.length < 6) {
+                Toast.makeText(requireContext(), "Login incorrecto", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Llamada a Firebase Auth
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val action = LoginFragmentDirections.actionLoginFragmentToInventarioFragment()
+                        findNavController().navigate(action)
+                    } else {
+                        val exception = task.exception
+                        val message = when {
+                            exception?.message?.contains("no user record", true) == true ->
+                                "El correo no está registrado"
+
+                            exception?.message?.contains("password is invalid", true) == true ->
+                                "Contraseña incorrecta"
+
+                            exception?.message?.contains("network error", true) == true ->
+                                "Sin conexión a internet"
+
+                            exception?.message?.contains("badly formatted", true) == true ->
+                                "Correo inválido"
+
+                            else -> "Login incorrecto"
+                        }
+
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
         }
     }
 
