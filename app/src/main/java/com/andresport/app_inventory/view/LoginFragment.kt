@@ -143,6 +143,25 @@ class LoginFragment : Fragment() {
                 }
 
         }
+        registerButton.setOnClickListener {
+            val email = emailEditText.text?.toString()?.trim() ?: ""
+            val password = passwordEditText.text?.toString() ?: ""
+
+            if (email.isEmpty() || password.length < 6) {
+                Toast.makeText(requireContext(), "Error en el registro", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Aquí aún no navegamos (eso es el criterio 14)
+                    } else {
+                        Toast.makeText(requireContext(), "Error en el registro", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
+
 
     }
 
